@@ -2,7 +2,7 @@ name: Run WordPress Unit Tests
 on:
   push:
     branches:
-      - main
+      - master
   schedule:
     - cron: 0 0 * * *
   workflow_dispatch:
