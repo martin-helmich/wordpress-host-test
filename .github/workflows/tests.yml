@@ -21,4 +21,4 @@ jobs:
           database-user: ${{ secrets.DATABASE_USER }}
           database-name: ${{ secrets.DATABASE_NAME }}
           database-password: ${{ secrets.DATABASE_PASSWORD }}
-          test-filter: '(?!Tests_Image_Editor_Imagick::test_image_max_bit_depth)'
+          test-filter: '^(?!Tests_Image_Editor_Imagick::test_image_max_bit_depth)'
