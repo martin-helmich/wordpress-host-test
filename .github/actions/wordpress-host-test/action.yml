@@ -34,7 +34,7 @@ inputs:
   ssh-connect:
     required: true
   ssh-private-key:
-    required: false
+    required: true
 runs:
   using: "composite"
   steps:  

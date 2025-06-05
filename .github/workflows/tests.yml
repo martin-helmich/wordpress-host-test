@@ -15,6 +15,7 @@ jobs:
       - uses: ./.github/actions/wordpress-host-test
         with:
           ssh-connect: '${{ secrets.SSH_CONNECT }}'
+          ssh-private-key: '${{ secrets.SSH_PRIVATE_KEY }}'
           remote-test-dir: /files/wordpress-host-test
           database-host: ${{ secrets.DATABASE_HOST }}
           database-user: ${{ secrets.DATABASE_USER }}
