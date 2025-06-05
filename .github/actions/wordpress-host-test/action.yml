@@ -1,39 +1,41 @@
 name: "WordPress Host Test"
-description: 
-
-#
-#    env:
-      # This is only a subset/example of env vars available. See the `.env.default` file for a full list.
-#      WPT_PREPARE_DIR: ${{ secrets.WPT_PREPARE_DIR }}
-#      WPT_TEST_DIR: ${{ secrets.WPT_TEST_DIR }}
-#      WPT_REPORT_API_KEY: ${{ secrets.WPT_REPORT_API_KEY }}
-#      WPT_PHP_EXECUTABLE: ${{ secrets.WPT_PHP_EXECUTABLE }}
-      # Database settings
-#      WPT_DB_NAME: ${{ secrets.WPT_DB_NAME }}
-#      WPT_DB_USER: ${{ secrets.WPT_DB_USER }}
-#      WPT_DB_PASSWORD: ${{ secrets.WPT_DB_PASSWORD }}
-#      WPT_DB_HOST: ${{ secrets.WPT_DB_HOST }}
-      # SSH settings for connecting to the test environment.
- #     WPT_SSH_CONNECT: ${{ secrets.WPT_SSH_CONNECT }}
-#      WPT_SSH_PRIVATE_KEY_BASE64: ${{ secrets.WPT_SSH_PRIVATE_KEY_BASE64 }}
-
+description: >
+  Run the WordPress Host Test on a remote system reachable via SSH
 
 inputs:
   report-api-key:
+    description: >
+      API key for reporting test results back to wordpress.org; if omitted,
+      test result reporting will be skipped.
     required: false
   remote-test-dir:
+    description: >
+      Remote directory in which tests will be run
     required: true
   database-host:
+    description: >
+      Database host for running the unit tests
     required: true
   database-user:
+    description: >
+      Database user for running the unit tests
     required: true
   database-password:
+    description: >
+      Database password for running the unit tests
     required: true
   database-name:
+    description: >
+      Database name for running the unit tests
     required: true
   ssh-connect:
+    description: >
+      SSH connection string (in the format username@host) for connecting to the
+      hosting environment under test.
     required: true
   ssh-private-key:
+    description: >
+      A base64-encoded SSH private key.
     required: true
 runs:
   using: "composite"
@@ -57,6 +59,7 @@ runs:
     
     - name: Prepare SSH private key
       shell: bash
+      if: ${{ inputs.ssh-private-key }}
       run: |
         mkdir -p ~/.ssh
         echo '${{ inputs.ssh-private-key }}' | base64 -d > ~/.ssh/id_rsa
