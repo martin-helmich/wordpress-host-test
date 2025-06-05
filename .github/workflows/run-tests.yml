@@ -1,0 +1,16 @@
+name: Run WordPress Unit Tests
+on:
+  workflow_dispatch:
+jobs:
+  run-tests:
+    name: Run Test Suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/wordpress-host-test
+        with:
+          ssh-connect: '${{ secrets.SSH_CONNECT }}'
+          remote-test-dir: /files/wordpress-host-test
+          database-host: ${{ secrets.DATABASE_HOST }}
+          database-user: ${{ secrets.DATABASE_USER }}
+          database-name: ${{ secrets.DATABASE_NAME }}
+          database-password: ${{ secrets.DATABASE_PASSWORD }}
