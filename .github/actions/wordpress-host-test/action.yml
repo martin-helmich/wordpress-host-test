@@ -56,6 +56,7 @@ runs:
         node-version: 20
     
     - name: Prepare SSH private key
+      shell: bash
       run: |
         mkdir -p ~/.ssh
         echo '${{ inputs.ssh-private-key }}' | base64 -d > ~/.ssh/id_rsa
