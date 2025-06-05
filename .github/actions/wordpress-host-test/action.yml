@@ -37,6 +37,9 @@ inputs:
     description: >
       A base64-encoded SSH private key.
     required: true
+  test-filter:
+    description: A regular expression to filter tests that should be run.
+    default: '.*'
 runs:
   using: "composite"
   steps:  
@@ -97,6 +100,12 @@ runs:
         WPT_DB_PASSWORD: ${{ inputs.database-password }}
         WPT_DB_HOST:  ${{ inputs.database-host }}
         WPT_SSH_CONNECT: ${{ inputs.ssh-connect }}
+        WPT_PHPUNIT_CMD: >
+          cd /tmp/wp-tests && 
+          ./vendor/phpunit/phpunit/phpunit 
+          --dont-report-useless-tests 
+          -c tests/phpunit/multisite.xml
+          --filter '${{ inputs.test-filter }}'
 
     - name: Report the results
       run: php report.php
