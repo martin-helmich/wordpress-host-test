@@ -72,7 +72,7 @@ runs:
     - name: Test SSH connectivity
       shell: bash
       run: |
-        ssh ${{ inputs.ssh-connect }} whoami
+        ssh -o StrictHostKeyChecking=no ${{ inputs.ssh-connect }} whoami
 
     - name: Prepare environment
       env:
