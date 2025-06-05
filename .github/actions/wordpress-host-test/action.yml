@@ -54,6 +54,12 @@ runs:
       uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
       with:
         node-version: 20
+    
+    - name: Prepare SSH private key
+      run: |
+        mkdir -p ~/.ssh
+        echo '${{ inputs.ssh-private-key }}' | base64 -d > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
 
     - name: Prepare environment
       env:
@@ -63,7 +69,6 @@ runs:
         WPT_DB_USER: ${{ inputs.database-user }}
         WPT_DB_PASSWORD: ${{ inputs.database-password }}
         WPT_DB_HOST:  ${{ inputs.database-host }}
-        WPT_SSH_PRIVATE_KEY_BASE64: ${{ inputs.ssh-private-key }}
         WPT_SSH_CONNECT: ${{ inputs.ssh-connect }}
       run: php prepare.php
       shell: bash
