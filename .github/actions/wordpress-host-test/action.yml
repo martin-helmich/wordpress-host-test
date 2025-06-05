@@ -61,6 +61,12 @@ runs:
         mkdir -p ~/.ssh
         echo '${{ inputs.ssh-private-key }}' | base64 -d > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
+        ls -al ~/.ssh/id_rsa
+    
+    - name: Test SSH connectivity
+      shell: bash
+      run: |
+        ssh ${{ inputs.ssh-connect }} whoami
 
     - name: Prepare environment
       env:
