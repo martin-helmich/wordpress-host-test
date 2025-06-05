@@ -11,7 +11,7 @@ jobs:
     name: Run Test Suite
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/wordpress-host-test
         with:
           ssh-connect: '${{ secrets.SSH_CONNECT }}'
