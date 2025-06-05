@@ -101,7 +101,7 @@ runs:
         WPT_DB_HOST:  ${{ inputs.database-host }}
         WPT_SSH_CONNECT: ${{ inputs.ssh-connect }}
         WPT_PHPUNIT_CMD: >
-          cd /tmp/wp-tests && 
+          cd ${{ inputs.remote-test-dir }} && 
           ./vendor/phpunit/phpunit/phpunit 
           --dont-report-useless-tests 
           -c tests/phpunit/multisite.xml
