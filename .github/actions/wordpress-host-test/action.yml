@@ -93,7 +93,6 @@ runs:
         WPT_DB_USER: ${{ inputs.database-user }}
         WPT_DB_PASSWORD: ${{ inputs.database-password }}
         WPT_DB_HOST:  ${{ inputs.database-host }}
-        WPT_SSH_PRIVATE_KEY_BASE64: ${{ inputs.ssh-private-key }}
         WPT_SSH_CONNECT: ${{ inputs.ssh-connect }}
 
     - name: Report the results
@@ -104,8 +103,23 @@ runs:
       working-directory: ./runner
       env:
         WPT_REPORT_API_KEY: ${{ inputs.report-api-key }}
+        WPT_PREPARE_DIR: /tmp/wp-tests
+        WPT_TEST_DIR: ${{ inputs.remote-test-dir }}
+        WPT_DB_NAME: ${{ inputs.database-name }}
+        WPT_DB_USER: ${{ inputs.database-user }}
+        WPT_DB_PASSWORD: ${{ inputs.database-password }}
+        WPT_DB_HOST:  ${{ inputs.database-host }}
+        WPT_SSH_CONNECT: ${{ inputs.ssh-connect }}
 
     - name: Cleanup
       run: php cleanup.php
       shell: bash
       working-directory: ./runner
+      env:
+        WPT_PREPARE_DIR: /tmp/wp-tests
+        WPT_TEST_DIR: ${{ inputs.remote-test-dir }}
+        WPT_DB_NAME: ${{ inputs.database-name }}
+        WPT_DB_USER: ${{ inputs.database-user }}
+        WPT_DB_PASSWORD: ${{ inputs.database-password }}
+        WPT_DB_HOST:  ${{ inputs.database-host }}
+        WPT_SSH_CONNECT: ${{ inputs.ssh-connect }}
